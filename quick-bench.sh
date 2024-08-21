@@ -22,7 +22,7 @@ echo ""
 echo "=============================="
 echo "Compiling and running Zig program..."
 cd ./zig
-zig build
+zig build -Doptimize=ReleaseFast
 time ./zig-out/bin/zig
 cd ..
 echo ""
@@ -40,6 +40,6 @@ echo ""
 echo "=============================="
 echo "Compiling and running C++ program..."
 cd ./c++
-g++ bench.cpp
+g++ -O3 bench.cpp
 time ./a.out
 cd ..
