@@ -1,0 +1,9 @@
+.history
+
+# Build artifacts
+c++/a.out
+go/bench
+gpq/bench
+rust/target
+zig/zig-out
+zig/.zig-cache
