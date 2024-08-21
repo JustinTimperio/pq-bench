@@ -10,7 +10,7 @@ This repository contains benchmarks for various priority queue implementations i
 
 
 ## Benchmarks
-![Benchmark](./docs/Time-Spent-(seconds)-vs-Implementation.png)
+![Benchmark](./docs/Time-Spent-vs-Implementation.png)
 
 ## Features
 | Feature          | GPQ | RPQ | Go Binary Heap | Zig Binary Heap | C++ Binary Heap | Rust Binary Heap |
