@@ -36,6 +36,15 @@ time ./target/release/bench
 cd ..
 echo ""
 
+# RPQ
+echo "=============================="
+echo "Compiling and running RPQ program..."
+cd ./rpq
+cargo build --release
+time ./target/release/bench
+cd ..
+echo ""
+
 # C++
 echo "=============================="
 echo "Compiling and running C++ program..."

@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	total      int  = 10000000
+	total      int  = 10_000_000
 	syncToDisk bool = false
 	lazySync   bool = false
 	print      bool = false
