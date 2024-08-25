@@ -6,5 +6,6 @@ go/bench
 gpq/bench
 rust/target
 rpq/target
+rpq/profile.pb
 zig/zig-out
 zig/.zig-cache
