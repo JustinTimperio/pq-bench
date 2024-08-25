@@ -15,7 +15,7 @@ This repository contains benchmarks for various priority queue implementations i
 Language       | Time Spent (seconds)
 ---------------|---------------------
 Go (GPQ)       | 3.48
-Rust (RPQ)     | 4.2
+Rust (RPQ)     | 1.82
 Zig (STD LIB)  | 0.87
 Rust (STD LIB) | 0.72
 Go (STD LIB)   | 3.41
@@ -27,5 +27,5 @@ C++ (STD LIB)  | 4.2
 | Enqueue          | ✅   | ✅   | ✅              | ✅               | ✅               | ✅                |
 | Dequeue          | ✅   | ✅   | ✅              | ✅               | ✅               | ✅                |
 | Disk Cache       | ✅   | ✅   | ❌              | ❌               | ❌               | ❌                |
-| Mutable Priority | ✅   | ✅   | ❌              | ❌               | ❌               | ❌                |
+| Mutable Priority | ✅   | ✅   | ✅              | ❌               | ❌               | ❌                |
 | Timeouts         | ✅   | ✅   | ❌              | ❌               | ❌               | ❌                |
