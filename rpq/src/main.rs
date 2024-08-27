@@ -1,9 +1,10 @@
-use pprof::protos::Message;
-use rpq::pq::Item;
-use rpq::{RPQOptions, RPQ};
 use std::fs::File;
 use std::io::Write;
 use std::sync::Arc;
+
+use pprof::protos::Message;
+use rpq::pq::Item;
+use rpq::{RPQOptions, RPQ};
 
 #[tokio::main(flavor = "multi_thread")]
 async fn main() {
@@ -21,9 +22,16 @@ async fn main() {
         buffer_size: 1_000_000,
     };
 
-    let r = Arc::new(RPQ::new(options).await);
+    let r = RPQ::new(options).await;
+    match r {
+        Ok(_) => {}
+        Err(e) => {
+            println!("Error Creating RPQ: {}", e);
+            return;
+        }
+    }
 
-    let rpq = Arc::clone(&r.0);
+    let rpq = Arc::clone(&r.unwrap().0);
 
     let timer = std::time::Instant::now();
     let send_timer = std::time::Instant::now();
@@ -36,14 +44,22 @@ async fn main() {
             false,
             Some(std::time::Duration::from_secs(5)),
         );
-        rpq.enqueue(item).await;
+        let result = rpq.enqueue(item).await;
+        if result.is_err() {
+            println!("Error Enqueuing: {}", result.err().unwrap());
+            return;
+        }
     }
 
     let send_elapsed = send_timer.elapsed().as_secs_f64();
 
     let receive_timer = std::time::Instant::now();
     for _i in 0..message_count {
-        rpq.dequeue().await;
+        let result = rpq.dequeue().await;
+        if result.is_err() {
+            println!("Error Dequeuing: {}", result.err().unwrap());
+            return;
+        }
     }
 
     let receive_elapsed = receive_timer.elapsed().as_secs_f64();

@@ -19,13 +19,13 @@ Rust (RPQ)     | 1.82
 Zig (STD LIB)  | 0.87
 Rust (STD LIB) | 0.72
 Go (STD LIB)   | 3.41
-C++ (STD LIB)  | 4.2
+C++ (STD LIB)  | 4.24
 
 ## Features
-| Feature          | GPQ | RPQ | Go Binary Heap | Zig Binary Heap | C++ Binary Heap | Rust Binary Heap |
-|------------------|-----|-----|----------------|-----------------|-----------------|------------------|
-| Enqueue          | ✅   | ✅   | ✅              | ✅               | ✅               | ✅                |
-| Dequeue          | ✅   | ✅   | ✅              | ✅               | ✅               | ✅                |
-| Disk Cache       | ✅   | ✅   | ❌              | ❌               | ❌               | ❌                |
-| Mutable Priority | ✅   | ✅   | ✅              | ❌               | ❌               | ❌                |
-| Timeouts         | ✅   | ✅   | ❌              | ❌               | ❌               | ❌                |
+| Feature          | GPQ | RPQ | Go Heap | Zig Priority Queue | C++ Queue | Rust Binary Heap |
+|------------------|-----|-----|---------|--------------------|-----------|------------------|
+| Enqueue          | ✅   | ✅   | ✅       | ✅                  | ✅         | ✅                |
+| Dequeue          | ✅   | ✅   | ✅       | ✅                  | ✅         | ✅                |
+| Disk Cache       | ✅   | ✅   | ❌       | ❌                  | ❌         | ❌                |
+| Mutable Priority | ✅   | ✅   | ✅       | ❌                  | ❌         | ❌                |
+| Timeouts         | ✅   | ✅   | ❌       | ❌                  | ❌         | ❌                |

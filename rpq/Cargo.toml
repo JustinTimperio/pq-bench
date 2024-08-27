@@ -6,8 +6,11 @@ edition = "2021"
 [dependencies]
 rpq = { path = "../../rpq" }
 tokio = "1.10.0"
-pprof = { version = "0.13", features = ["flamegraph", "protobuf", "protobuf-codec"] }
-coarsetime = "0.1.34"
+pprof = { version = "0.13", features = [
+    "flamegraph",
+    "protobuf",
+    "protobuf-codec",
+] }
 
 [profile.release]
 debug = true
