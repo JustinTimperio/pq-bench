@@ -12,14 +12,18 @@ This repository contains benchmarks for various priority queue implementations i
 ## Benchmarks
 ![Benchmark](./docs/Time-Spent-vs-Implementation.png)
 
-Language       | Time Spent (seconds)
----------------|---------------------
-Go (GPQ)       | 3.48
-Rust (RPQ)     | 1.82
-Zig (STD LIB)  | 0.87
-Rust (STD LIB) | 0.72
-Go (STD LIB)   | 3.41
-C++ (STD LIB)  | 4.24
+Language             | Time Spent (seconds)
+---------------------|---------------------
+RPQ                  | 1.38
+RPQ (Batch)          | 0.98
+RPQ (Batch Parallel) | 0.62
+GPQ                  | 3.48
+GPQ (Batch)          | TODO
+GPQ (Batch Parallel) | TODO
+Zig (STD LIB)        | 0.87
+Rust (STD LIB)       | 0.72
+Go (STD LIB)         | 3.41
+C++ (STD LIB)        | 4.24
 
 ## Features
 | Feature          | GPQ | RPQ | Go Heap | Zig Priority Queue | C++ Queue | Rust Binary Heap |

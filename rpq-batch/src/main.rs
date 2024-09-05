@@ -11,6 +11,7 @@ async fn main() {
     let guard = pprof::ProfilerGuard::new(100).unwrap();
 
     let message_count = 10_000_000;
+    let batch_size = 10_000;
 
     let options = RPQOptions {
         max_priority: 10,
@@ -34,26 +35,31 @@ async fn main() {
 
     let timer = std::time::Instant::now();
     let send_timer = std::time::Instant::now();
-    for i in 0..message_count {
-        let item = Item::new(
-            i % 10,
-            i,
-            false,
-            None,
-            false,
-            Some(std::time::Duration::from_secs(5)),
-        );
-        let result = rpq.enqueue(item).await;
+    for i in 0..message_count / batch_size {
+        let mut items = Vec::new();
+        for j in 0..batch_size {
+            let item = Item::new(
+                i % 10,
+                i,
+                false,
+                None,
+                false,
+                Some(std::time::Duration::from_secs(5)),
+            );
+            items.push(item);
+        }
+        let result = rpq.enqueue_batch(items).await;
         if result.is_err() {
             println!("Error Enqueuing: {}", result.err().unwrap());
             return;
         }
     }
+
     let send_elapsed = send_timer.elapsed().as_secs_f64();
 
     let receive_timer = std::time::Instant::now();
-    for _i in 0..message_count {
-        let result = rpq.dequeue().await;
+    for _i in 0..message_count / batch_size {
+        let result = rpq.dequeue_batch(batch_size).await;
         if result.is_err() {
             println!("Error Dequeuing: {}", result.err().unwrap());
             return;

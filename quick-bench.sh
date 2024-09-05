@@ -1,11 +1,29 @@
 #!/bin/bash
 
-# Go
+# RPQ
 echo "=============================="
-echo "Compiling and running Go program..."
-cd ./go
-go build .
-time ./bench
+echo "Compiling and running RPQ program..."
+cd ./rpq
+cargo build --release
+time ./target/release/bench
+cd ..
+echo ""
+
+# RPQ Batch
+echo "=============================="
+echo "Compiling and running RPQ program..."
+cd ./rpq-batch
+cargo build --release
+time ./target/release/bench
+cd ..
+echo ""
+
+# RPQ Batch Parallel
+echo "=============================="
+echo "Compiling and running RPQ program..."
+cd ./rpq-batch-parallel
+cargo build --release
+time ./target/release/bench
 cd ..
 echo ""
 
@@ -36,12 +54,12 @@ time ./target/release/bench
 cd ..
 echo ""
 
-# RPQ
+# Go
 echo "=============================="
-echo "Compiling and running RPQ program..."
-cd ./rpq
-cargo build --release
-time ./target/release/bench
+echo "Compiling and running Go program..."
+cd ./go
+go build .
+time ./bench
 cd ..
 echo ""
 

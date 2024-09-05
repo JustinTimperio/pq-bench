@@ -1,0 +1,17 @@
+[package]
+name = "bench"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rpq = { path = "../../rpq" }
+tokio = "1.10.0"
+pprof = { version = "0.13", features = [
+    "flamegraph",
+    "protobuf",
+    "protobuf-codec",
+] }
+csv = "1.3.0"
+
+[profile.release]
+debug = true

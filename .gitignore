@@ -9,3 +9,7 @@ rpq/target
 rpq/profile.pb
 zig/zig-out
 zig/.zig-cache
+rpq-batch/target
+rpq-batch/profile.pb
+rpq-batch-parallel/target
+rpq-batch-parallel/profile.pb
