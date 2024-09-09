@@ -14,6 +14,7 @@ func main() {
 
 	var total uint = 10_000_000
 	var MaxPriority uint = 100
+	var batchSize uint = 10_000
 
 	defaultMessageOptions := schema.EnQueueOptions{
 		ShouldEscalate: false,
@@ -34,7 +35,7 @@ func main() {
 		DiskWriteDelay:           time.Duration(time.Second * 5),
 		LazyDiskCacheEnabled:     false,
 		LazyDiskCacheChannelSize: 1_000_000,
-		LazyDiskBatchSize:        10_000,
+		LazyDiskBatchSize:        100_000,
 	}
 
 	_, queue, err := gpq.NewGPQ[uint](opts)
@@ -43,11 +44,17 @@ func main() {
 	}
 
 	timer := time.Now()
-	for i := uint(0); i < total; i++ {
-		p := i % MaxPriority
-		item := schema.NewItem(p, i, defaultMessageOptions)
+	for i := uint(0); i < total/batchSize; i++ {
 
-		err := queue.Enqueue(item)
+		var miniBatch []schema.Item[uint]
+
+		for j := uint(0); j < batchSize; j++ {
+			p := i % MaxPriority
+			item := schema.NewItem(p, i, defaultMessageOptions)
+			miniBatch = append(miniBatch, item)
+		}
+
+		err := queue.EnqueueBatch(miniBatch)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -55,8 +62,8 @@ func main() {
 	sendTime := time.Since(timer)
 
 	timer = time.Now()
-	for i := uint(0); i < total; i++ {
-		_, err := queue.Dequeue()
+	for i := uint(0); i < total/batchSize; i++ {
+		_, err := queue.DequeueBatch(batchSize)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -68,5 +75,4 @@ func main() {
 	fmt.Println("Time to insert 10 million integers:", sendTime)
 	fmt.Println("Time to retrieve 10 million integers:", receivedTime)
 	fmt.Println("Total time:", sendTime+receivedTime)
-
 }

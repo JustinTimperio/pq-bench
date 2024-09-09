@@ -36,6 +36,24 @@ time ./bench
 cd ..
 echo ""
 
+## GPQ Batch
+echo "=============================="
+echo "Compiling and running GPQ program..."
+cd ./gpq-batch
+go build .
+time ./bench
+cd ..
+
+## GPQ Batch Parallel
+echo "=============================="
+echo "Compiling and running GPQ program..."
+cd ./gpq-batch-parallel
+go build .
+time ./bench
+cd ..
+echo ""
+
+echo ""
 # Zig
 echo "=============================="
 echo "Compiling and running Zig program..."

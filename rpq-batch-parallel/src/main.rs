@@ -2,9 +2,9 @@ use std::fs::File;
 use std::io::Write;
 use std::sync::Arc;
 
+use chrono::Duration;
 use pprof::protos::Message;
-use rpq::pq::Item;
-use rpq::{RPQOptions, RPQ};
+use rpq::{schema::Item, schema::RPQOptions, RPQ};
 
 #[tokio::main(flavor = "multi_thread")]
 async fn main() {
@@ -20,7 +20,7 @@ async fn main() {
         disk_cache_enabled: false,
         database_path: "/tmp/rpq-bench.redb".to_string(),
         lazy_disk_cache: true,
-        lazy_disk_write_delay: std::time::Duration::from_secs(5),
+        lazy_disk_write_delay: Duration::seconds(5),
         lazy_disk_cache_batch_size: 10000,
     };
 
@@ -44,14 +44,7 @@ async fn main() {
             for i in 0..(message_count / senders) / batch_size {
                 let mut items = Vec::new();
                 for _ in 0..batch_size {
-                    let item = Item::new(
-                        i % 10,
-                        i,
-                        false,
-                        None,
-                        false,
-                        Some(std::time::Duration::from_secs(5)),
-                    );
+                    let item = Item::new(i % 10, i, false, None, false, None);
                     items.push(item);
                 }
                 let result = rpq_clone.enqueue_batch(items).await;

@@ -74,10 +74,3 @@ func (pq *PriorityQueue) Pop() any {
 	*pq = old[0 : n-1]
 	return item
 }
-
-// update modifies the priority and value of an Item in the queue.
-func (pq *PriorityQueue) update(item *Item, value int, priority int) {
-	item.value = value
-	item.priority = priority
-	heap.Fix(pq, item.index)
-}

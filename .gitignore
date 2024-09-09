@@ -4,6 +4,8 @@
 c++/a.out
 go/bench
 gpq/bench
+gpq-batch/bench
+gpq-batch-parallel/bench
 rust/target
 rpq/target
 rpq/profile.pb

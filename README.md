@@ -17,12 +17,12 @@ Language             | Time Spent (seconds)
 RPQ                  | 1.38
 RPQ (Batch)          | 0.98
 RPQ (Batch Parallel) | 0.62
-GPQ                  | 3.48
-GPQ (Batch)          | TODO
-GPQ (Batch Parallel) | TODO
+GPQ                  | 6.07
+GPQ (Batch)          | 5.93
+GPQ (Batch Parallel) | 4.12
 Zig (STD LIB)        | 0.87
 Rust (STD LIB)       | 0.72
-Go (STD LIB)         | 3.41
+Go (STD LIB)         | 3.61
 C++ (STD LIB)        | 4.24
 
 ## Features

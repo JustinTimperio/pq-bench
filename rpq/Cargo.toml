@@ -11,6 +11,7 @@ pprof = { version = "0.13", features = [
     "protobuf",
     "protobuf-codec",
 ] }
+chrono = "0.4.38"
 
 [profile.release]
 debug = true
