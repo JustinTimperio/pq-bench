@@ -16,7 +16,7 @@ func main() {
 	var MaxPriority uint = 100
 	var batchSize uint = 10_000
 
-	defaultMessageOptions := schema.EnQueueOptions{
+	defaultMessageOptions := schema.EnqueueOptions{
 		ShouldEscalate: false,
 		EscalationRate: time.Duration(time.Second),
 		CanTimeout:     false,

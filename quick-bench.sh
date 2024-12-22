@@ -88,3 +88,10 @@ cd ./c++
 g++ -O3 bench.cpp
 time ./a.out
 cd ..
+
+# Python
+echo "=============================="
+echo "Running Python program..."
+cd ./python
+time python3 main.py
+cd ..

@@ -37,7 +37,7 @@ async fn main() {
     let send_timer = std::time::Instant::now();
     for i in 0..message_count / batch_size {
         let mut items = Vec::new();
-        for j in 0..batch_size {
+        for _j in 0..batch_size {
             let item = Item::new(i % 10, i, false, None, false, Some(Duration::seconds(5)));
             items.push(item);
         }

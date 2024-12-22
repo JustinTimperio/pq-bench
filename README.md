@@ -17,13 +17,14 @@ Language             | Time Spent (seconds)
 RPQ                  | 1.38
 RPQ (Batch)          | 0.98
 RPQ (Batch Parallel) | 0.62
-GPQ                  | 6.07
-GPQ (Batch)          | 5.93
-GPQ (Batch Parallel) | 4.12
+GPQ                  | 5.54
+GPQ (Batch)          | 4.83
+GPQ (Batch Parallel) | 2.98
 Zig (STD LIB)        | 0.87
 Rust (STD LIB)       | 0.72
 Go (STD LIB)         | 3.61
 C++ (STD LIB)        | 4.24
+Python (STD LIB)     | 15.03
 
 ## Features
 | Feature          | GPQ | RPQ | Go Heap | Zig Priority Queue | C++ Queue | Rust Binary Heap |

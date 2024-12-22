@@ -15,7 +15,7 @@ func main() {
 	var total uint = 10_000_000
 	var MaxPriority uint = 100
 
-	defaultMessageOptions := schema.EnQueueOptions{
+	defaultMessageOptions := schema.EnqueueOptions{
 		ShouldEscalate: false,
 		EscalationRate: time.Duration(time.Second),
 		CanTimeout:     false,

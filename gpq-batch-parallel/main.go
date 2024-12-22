@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	_ "net/http/pprof"
+	"os"
+	"runtime/pprof"
 	"sync"
 	"time"
 
@@ -12,27 +14,25 @@ import (
 )
 
 func main() {
-	/*
-		// Create a pprof file
-		f, err := os.Create("profile.pprof")
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer f.Close()
+	// Create a pprof file
+	f, err := os.Create("profile.pprof")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
 
-		// Start CPU profiling
-		err = pprof.StartCPUProfile(f)
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer pprof.StopCPUProfile()
-	*/
+	// Start CPU profiling
+	err = pprof.StartCPUProfile(f)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer pprof.StopCPUProfile()
 
 	var total uint = 10_000_000
-	var MaxPriority uint = 100
-	var batchSize uint = 10_000
+	var MaxPriority uint = 10
+	var batchSize uint = 100_000
 
-	defaultMessageOptions := schema.EnQueueOptions{
+	defaultMessageOptions := schema.EnqueueOptions{
 		ShouldEscalate: false,
 		EscalationRate: time.Duration(time.Second),
 		CanTimeout:     false,
@@ -63,38 +63,34 @@ func main() {
 
 	timer := time.Now()
 
-	for i := 0; i < 5; i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			for i := uint(0); i < (total/batchSize)/5; i++ {
-				var miniBatch []schema.Item[uint]
-				for j := uint(0); j < batchSize; j++ {
-					p := i % MaxPriority
-					item := schema.NewItem(p, i, defaultMessageOptions)
-					miniBatch = append(miniBatch, item)
-				}
-
-				err := queue.EnqueueBatch(miniBatch)
-				if err != nil {
-					log.Fatalln(err)
-				}
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for i := uint(0); i < (total / batchSize); i++ {
+			var miniBatch []schema.Item[uint]
+			for j := uint(0); j < batchSize; j++ {
+				p := i % MaxPriority
+				item := schema.NewItem(p, i, defaultMessageOptions)
+				miniBatch = append(miniBatch, item)
 			}
-		}()
-	}
 
-	for i := 0; i < 1; i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			for i := uint(0); i < (total/batchSize)/1; i++ {
-				_, err := queue.DequeueBatch(batchSize)
-				if err != nil {
-					i--
-				}
+			err := queue.EnqueueBatch(miniBatch)
+			if err != nil {
+				log.Fatalln(err)
 			}
-		}()
-	}
+		}
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for i := uint(0); i < (total/batchSize)/1; i++ {
+			_, err := queue.DequeueBatch(batchSize)
+			if err != nil {
+				i--
+			}
+		}
+	}()
 
 	wg.Wait()
 	receivedTime := time.Since(timer)
